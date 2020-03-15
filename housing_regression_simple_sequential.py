@@ -1,4 +1,4 @@
-"""Build a simple regression neural network to predict California housing  
+"""Build a simple regression neural network to predict California housing
 
     Model:
         - dense (m -> 30, relu)
@@ -25,7 +25,7 @@ X_test = scaler.transform(X_test)
 model = keras.models.Sequential(
     [
         keras.layers.Dense(30, input_shape=X_train.shape[1:], activation="relu"),
-        keras.layers.Dense(1)
+        keras.layers.Dense(1),
     ],
 )
 model.compile(loss="mean_squared_error", optimizer="sgd")
