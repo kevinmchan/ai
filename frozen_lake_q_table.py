@@ -8,7 +8,7 @@
         exploration_decay_rate
         learning_rate
         discount_rate
-    
+
     Approach:
     Initialize Q-table to be naive
     For each episode:
@@ -25,15 +25,16 @@
 
 import gym
 import numpy as np
-
 from gym.envs.registration import register
+
 register(
-    id='FrozenLake-v1',
-    entry_point='gym.envs.toy_text:FrozenLakeEnv',
-    kwargs={'map_name' : '8x8', 'is_slippery': False},
+    id="FrozenLake-v1",
+    entry_point="gym.envs.toy_text:FrozenLakeEnv",
+    kwargs={"map_name": "8x8", "is_slippery": False},
     max_episode_steps=100,
-    reward_threshold=0.8196, # optimum = .8196, changing this seems have no influence
+    reward_threshold=0.8196,  # optimum = .8196, changing this seems have no influence
 )
+
 
 class QTableAgent:
     def __init__(self, env):
@@ -56,11 +57,15 @@ class QTableAgent:
         )
 
     def update_q_table(self, state, new_state, action, reward):
-        self.q_table[state, action] = self.q_table[state, action] + self.learning_rate * (
-            reward + self.discount_rate * np.max(self.q_table[new_state]) - self.q_table[state, action]
+        self.q_table[state, action] = self.q_table[
+            state, action
+        ] + self.learning_rate * (
+            reward
+            + self.discount_rate * np.max(self.q_table[new_state])
+            - self.q_table[state, action]
         )
 
-    def learn(self):        
+    def learn(self):
         rewards = []
         self.exploration_decay_rate = 0.999
         for episode in range(self.num_episodes):
@@ -80,17 +85,17 @@ class QTableAgent:
                 if done:
                     break
 
-            rewards.append(cumulative_rewards)    
+            rewards.append(cumulative_rewards)
             print(
                 f"Episode {episode} reward: {cumulative_rewards}, at step: {step},"
                 f" with win rate of {sum(rewards[-1000:]) / len(rewards[-1000:])}"
             )
-    
+
     def play(self):
         state = self.env.reset()
         cumulative_rewards = 0
         env.render()
-        for step in range(self.max_steps):
+        for _ in range(self.max_steps):
             action = np.argmax(self.q_table[state])
             state, reward, done, _ = self.env.step(action)
             cumulative_rewards += reward
