@@ -105,10 +105,10 @@ def main():
 
     history = model.fit_generator(
         train_generator,
-        steps_per_epoch=200,
+        steps_per_epoch=TRAIN_SIZE // BATCH_SIZE,
         epochs=30,
         validation_data=val_generator,
-        validation_steps=100,
+        validation_steps=VAL_SIZE // BATCH_SIZE,
         callbacks=[model_checkpoint, es],
     )
     model.save("./data/cat_dog_mobilenet_pooled_finetuned_conv.h5")
