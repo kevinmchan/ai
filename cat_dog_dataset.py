@@ -23,9 +23,19 @@ def main():
     validation_dataset = os.path.join(new_dataset, "validation")
     test_dataset = os.path.join(new_dataset, "test")
 
-    create_image_set(original_dataset, training_dataset, range(1000))
-    create_image_set(original_dataset, validation_dataset, range(1000, 1500))
-    create_image_set(original_dataset, test_dataset, range(1500, 2000))
+    train_size = 10_000
+    val_size = 1_500
+    test_size = 1_000
+
+    create_image_set(original_dataset, training_dataset, range(train_size))
+    create_image_set(
+        original_dataset, validation_dataset, range(train_size, train_size + val_size)
+    )
+    create_image_set(
+        original_dataset,
+        test_dataset,
+        range(train_size + val_size, train_size + val_size + test_size),
+    )
 
 
 if __name__ == "__main__":
