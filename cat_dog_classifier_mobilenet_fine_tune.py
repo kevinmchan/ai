@@ -6,9 +6,9 @@ from keras.callbacks import ModelCheckpoint, EarlyStopping
 
 
 BATCH_SIZE = 32
-TRAIN_SIZE = 30_000
-VAL_SIZE = 4_500
-TEST_SIZE = 3_000
+TRAIN_SIZE = 20_000
+VAL_SIZE = 3_000
+TEST_SIZE = 2_000
 START_FINE_TUNING_LAYER = 144
 
 def model_specification():
