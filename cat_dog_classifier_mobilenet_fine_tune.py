@@ -1,8 +1,8 @@
-from keras import layers, models
-from keras.preprocessing.image import ImageDataGenerator
-from keras.optimizers import Adam
-from keras.applications import MobileNetV2
-from keras.callbacks import ModelCheckpoint, EarlyStopping
+from tensorflow.keras import layers, models
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.applications import MobileNetV2
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
 
 
 BATCH_SIZE = 32
@@ -103,7 +103,7 @@ def main():
     )
     es = EarlyStopping(monitor="val_loss", mode="min", verbose=1, patience=5)
 
-    history = model.fit_generator(
+    history = model.fit(
         train_generator,
         steps_per_epoch=TRAIN_SIZE // BATCH_SIZE,
         epochs=30,
@@ -117,7 +117,7 @@ def main():
     plot_training_and_validation_performance(
         history, "./figures/cat_dog_mobilenet_pooled_finetuned_perf.png"
     )
-    print(model.evaluate_generator(test_generator, steps=TEST_SIZE // BATCH_SIZE))
+    print(model.evaluate(test_generator, steps=TEST_SIZE // BATCH_SIZE))
 
 
 if __name__ == "__main__":
